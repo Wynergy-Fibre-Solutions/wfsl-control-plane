@@ -7,13 +7,7 @@ const orchestration = require("./orchestration");
 const evidence = require("./evidence");
 
 function execute(command) {
-  if (!command || typeof command !== "object") {
-    throw new Error("Invalid command");
-  }
-
-  const { entity, policy } = command;
-
-  const result = orchestration.execute(entity, policy);
+  const result = orchestration.execute(command);
   return evidence.emit(result);
 }
 

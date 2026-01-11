@@ -1,37 +1,78 @@
 /**
  * WFSL Control Plane – Orchestration Envelope
- * Composes admission and policy into a single command decision.
- * Deterministic. No I/O. No network.
+ * Composes validate + admission + policy. Never throws for domain failures.
  */
 
+const validate = require("../validate");
 const admission = require("../admission");
 const policy = require("../policy");
 
 module.exports = {
-  execute(entity, policyRule) {
-    const admissionResult = admission.register(entity);
+  execute(command) {
+    const trace = [];
 
-    if (!admissionResult.admitted) {
+    const v = validate.validateCommand(command);
+    trace.push(...v.trace);
+
+    if (!v.ok) {
       return {
         executed: false,
+        decision: v.decision,
+        reason_code: v.reason_code,
+        reason: v.reason,
+        stage: "validate",
+        trace,
+        timestamp: new Date().toISOString()
+      };
+    }
+
+    const entity = command.entity;
+    const policyRule = command.policy;
+
+    const a = admission.register(entity);
+    trace.push(...a.trace);
+
+    if (!a.admitted) {
+      return {
+        executed: false,
+        decision: a.decision,
+        reason_code: a.reason_code,
+        reason: a.reason,
         stage: "admission",
-        result: admissionResult
+        trace,
+        timestamp: new Date().toISOString()
       };
     }
 
-    const policyResult = policy.evaluate(entity, policyRule);
+    const p = policy.evaluate(entity, policyRule);
+    trace.push(...p.trace);
 
-    if (!policyResult.allowed) {
+    if (!p.allowed) {
       return {
         executed: false,
+        decision: p.decision,
+        reason_code: p.reason_code,
+        reason: p.reason,
         stage: "policy",
-        result: policyResult
+        trace,
+        timestamp: new Date().toISOString()
       };
     }
+
+    trace.push({
+      node: "orchestration",
+      decision: "ALLOW",
+      reason_code: "ORCH_EXECUTED",
+      reason: "Command executed"
+    });
 
     return {
       executed: true,
+      decision: "ALLOW",
+      reason_code: "ORCH_EXECUTED",
+      reason: "Command executed",
       stage: "orchestration",
+      trace,
       timestamp: new Date().toISOString()
     };
   }
