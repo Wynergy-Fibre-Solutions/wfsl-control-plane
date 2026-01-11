@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WFSL Control Plane Evidence",
+  "type": "object",
+  "required": ["system", "version", "executed", "stage", "timestamp", "payload"],
+  "properties": {
+    "system": { "type": "string" },
+    "version": { "type": "string" },
+    "executed": { "type": "boolean" },
+    "stage": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "payload": { "type": "object" }
+  },
+  "additionalProperties": false
+}
