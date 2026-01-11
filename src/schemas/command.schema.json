@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WFSL Command Envelope",
+  "type": "object",
+  "required": ["entity", "policy"],
+  "properties": {
+    "entity": {
+      "type": "object"
+    },
+    "policy": {
+      "$ref": "./policy.schema.json"
+    }
+  },
+  "additionalProperties": false
+}
