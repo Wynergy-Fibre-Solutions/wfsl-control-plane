@@ -1,9 +1,14 @@
 {
   "name": "wfsl-control-plane",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "WFSL control-plane primitives for governance, orchestration, and admission control",
   "main": "index.js",
   "types": "index.d.ts",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "src/"
+  ],
   "keywords": [
     "wfsl",
     "control-plane",
