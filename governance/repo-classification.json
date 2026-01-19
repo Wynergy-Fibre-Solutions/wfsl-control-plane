@@ -1,0 +1,44 @@
+{
+  "schema": "WFSL_REPO_CLASSIFICATION_V1",
+  "authority": "wfsl-control-plane",
+  "version": "1.0.0",
+  "updated_at": "2026-01-19T00:00:00Z",
+  "classes": {
+    "PUBLIC_SHOWCASE": {
+      "description": "Public, demo-safe, read-only outputs only",
+      "allows": ["docs", "demo_binaries", "verifiers", "evidence"],
+      "forbids": ["authority_logic", "secrets", "licensing_core"]
+    },
+    "DEMO_EVAL": {
+      "description": "Controlled demo with automatic limits",
+      "allows": ["feature_limited_binaries", "evidence", "entitlements"],
+      "requires": ["demo_entitlement"],
+      "forbids": ["long_lived_access", "raw_core_source"]
+    },
+    "CORE_PRIVATE": {
+      "description": "Crown jewels. Never public.",
+      "allows": ["signed_artifacts_only"],
+      "forbids": ["public_visibility", "demo_modes", "partial_exposure"]
+    }
+  },
+  "repos": {
+    "wfsl-control-plane": "CORE_PRIVATE",
+    "wfsl-core": "CORE_PRIVATE",
+    "wfsl-licence-core": "CORE_PRIVATE",
+    "WFSL-Licence-Engine": "CORE_PRIVATE",
+    "wfsl-governance-chain": "CORE_PRIVATE",
+    "wyneos-core": "CORE_PRIVATE",
+
+    "wfsl-evidence-guard": "DEMO_EVAL",
+    "wfsl-cloudflare-guard": "DEMO_EVAL",
+    "triggerguard-cli": "DEMO_EVAL",
+
+    "wfsl-web": "PUBLIC_SHOWCASE",
+    "wfsl-proofgate-cli": "PUBLIC_SHOWCASE",
+    "wfsl-shared-verifier": "PUBLIC_SHOWCASE",
+    "wfsl-shell-guard": "PUBLIC_SHOWCASE",
+    "wfsl-route-sentinel": "PUBLIC_SHOWCASE",
+    "WFSL-VERIFY": "PUBLIC_SHOWCASE",
+    "wynergyy-public-site": "PUBLIC_SHOWCASE"
+  }
+}
