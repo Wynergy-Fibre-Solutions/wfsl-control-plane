@@ -1,13 +1,5 @@
 # WFSL Control Plane
 
-Central orchestration and coordination layer for WFSL governance components.
+This repository is the authoritative governance and coordination layer for the Wynergy Fibre Solutions Ltd ecosystem.
 
-## What it does
-
-Coordinates execution and policy flow across WFSL guards.
-Provides a single deterministic control surface for governance.
-
-## How to run
-
-```powershell
-pwsh -NoProfile -ExecutionPolicy Bypass -File .\wfsl-control-plane.ps1
+Authoritative repository classification is defined in governance/repo-classification.json.
