@@ -1,7 +1,7 @@
 {
   "schema": "WFSL_REPO_CLASSIFICATION_V1",
   "authority": "wfsl-control-plane",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "updated_at": "2026-01-19T00:00:00Z",
   "classes": {
     "PUBLIC_SHOWCASE": {
@@ -39,6 +39,7 @@
     "wfsl-shell-guard": "PUBLIC_SHOWCASE",
     "wfsl-route-sentinel": "PUBLIC_SHOWCASE",
     "WFSL-VERIFY": "PUBLIC_SHOWCASE",
-    "wynergyy-public-site": "PUBLIC_SHOWCASE"
+    "wynergyy-public-site": "PUBLIC_SHOWCASE",
+    "wfsl-repo-validator": "PUBLIC_SHOWCASE"
   }
 }
